@@ -1,0 +1,750 @@
+﻿<!DOCTYPE html>
+<html lang="en" style="font-family: Dorid Arabic kufi;" direction=rtl dir=rtl>
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentLibrary</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/css/site.css" />
+    <link rel="shortcut icon" href="~/assets/media/logos/favicon.ico" />
+    <!--begin::Fonts(mandatory for all pages)-->
+    <!--end::Fonts-->
+    <!--begin::Vendor Stylesheets(used for this page only)-->
+    <link href="~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <!--end::Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/_select2.scss" rel="stylesheet" type="text/css" />
+
+
+    <link rel="shortcut icon" href="~/assets/media/logos/logo-Mo.png" />
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <!--begin::Vendor Stylesheets(used for this page only)-->
+    <link href="~/assets/plugins/custom/leaflet/leaflet.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/plugins/plugins.bundle.rtl.css" rel="stylesheet" />
+    <link href="~/assets/css/style.bundle.rtl.css" rel="stylesheet" />
+    <style>
+
+        @@font-face {
+            font-family: Dorid Arabic kufi !important;
+            src: url(../../../StudentLibrary/wwwroot/assets/Fonts/DroidKufi-Regular.ttf) !important;
+        }
+    </style>
+
+    <style>
+        .card-img{
+            height:300px
+        }
+        .td-Style {
+            text-align: center
+        }
+    </style>
+    <style>
+        .align-middle {
+            text-align: center
+        }
+
+        table {
+            border: none
+        }
+
+            table thead th {
+                color: black !important
+            }
+
+        .card-body {
+            padding: 2rem 1rem !important;
+        }
+
+        .row {
+            margin-bottom: 25px;
+        }
+       
+        /*.app-header{
+                background-color: #fcfcfc !important;
+        }*/
+        .app-header {
+            border-bottom: 0 !important
+        }
+
+        thead tr th {
+            text-align: center !important
+        }
+        .cart-button, .ShowMore {
+            position: relative;
+            padding: 10px;
+            width: 170px;
+            height: 50px;
+            border: 0;
+            border-radius: 10px;
+            background-color: #f1416c;
+            outline: none;
+            cursor: pointer;
+            color: #fff;
+            transition: .3s ease-in-out;
+            overflow: hidden;
+        }
+            
+            .cart-button:hover {
+                background-color: #35269b;
+            }
+
+            .cart-button:active {
+                transform: scale(.9);
+            }
+
+            .cart-button .fa-shopping-cart {
+                position: absolute;
+                z-index: 2;
+                top: 50%;
+                left: -10%;
+                font-size: 2em;
+                transform: translate(-50%,-50%);
+            }
+
+            .cart-button .fa-box {
+                position: absolute;
+                z-index: 3;
+                top: -20%;
+                left: 52%;
+                font-size: 1.2em;
+                transform: translate(-50%,-50%);
+            }
+
+            .cart-button span {
+                position: absolute;
+                z-index: 3;
+                left: 50%;
+                top: 50%;
+                font-size: 1.2em;
+                color: #fff;
+                transform: translate(-50%,-50%);
+            }
+
+                .cart-button span.add-to-cart {
+                    opacity: 1;
+                }
+
+                .cart-button span.added {
+                    opacity: 0;
+                }
+
+            .cart-button.clicked .fa-shopping-cart {
+                animation: cart 1.5s ease-in-out forwards;
+            }
+
+            .cart-button.clicked .fa-box {
+                animation: box 1.5s ease-in-out forwards;
+            }
+
+            .cart-button.clicked span.add-to-cart {
+                animation: txt1 1.5s ease-in-out forwards;
+            }
+
+            .cart-button.clicked span.added {
+                animation: txt2 1.5s ease-in-out forwards;
+            }
+          
+        @@keyframes cart {
+            0% {
+		left: -10%;
+	}
+	40%, 60% {
+		left: 50%;
+	}
+	100% {
+		left: 110%;
+	}
+}
+@@keyframes box {
+	0%, 40% {
+		top: -20%;
+	}
+	60% {
+		top: 40%;
+		left: 52%;
+	}
+	100% {
+		top: 40%;
+		left: 112%;
+	}
+}
+@@keyframes txt1 {
+	0% {
+		opacity: 1;
+	}
+	20%, 100% {
+		opacity: 0;
+	}
+}
+@@keyframes txt2 {
+	0%, 80% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: Verdana, Geneva, sans-serif;
+            font-size: 18px;
+            background-color: #CCC;
+        }
+
+        .float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            left: 40px;
+            background-color: #0C9;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 2px 2px 3px #999;
+        }
+
+        .my-float {
+           
+    </style>
+
+
+</head>
+<body id="kt_app_body" style="font-family:Dorid Arabic kufi" data-kt-app-layout="light-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <!--begin::Theme mode setup on page load-->
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: light)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <header>
+    </header>
+    <div class="container">
+
+        <main role="main" class="pb-3" style="margin-top:70px">
+            <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+                <!--begin::Page-->
+                <input type="text" id="IsSingleCopy" runat="server" style="display:none" />
+                <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+                    <!--begin::Header-->
+                    <div id="kt_app_header" class="app-header hideifframe82" style=" background-color: #fcfcfc;
+        right: 0">
+                        <div class=" d-flex flex-column justify-content-center flex-wrap me-3">
+                            <!--begin::Title-->
+                            <!--end::Title-->
+                            <!--begin::Breadcrumb-->
+                            <!--end::Breadcrumb-->
+                        </div>
+                        <!--begin::Header container-->
+                        <div class="app-container container-fluid d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
+                            <!--begin::Sidebar mobile toggle-->
+                            <!--<div class="d-flex   ms-n3 me-1 me-md-2" title="Show sidebar menu" style="width:100%">
+                              
+                                    <a href="@Url.Action("Index", "ShoppingCart")" style="margin-top:20px">-->
+                                        <!--begin::Send-->
+                                        <!--<button class="btn btn-danger" type="button" data-kt-element="send" onclick="RedirectToCart()">
+                                            انمام عملية الشراء <i class="ki-duotone ki-purchase fs-2 fs-lg-1">
+                                                <i class="path1"></i>
+                                                <i class="path2"></i>
+                                            </i>
+                                        </button>
+                                    </a>
+                                
+
+                            </div>-->
+                            <!--end::Sidebar mobile toggle-->
+                            <!--begin::Mobile logo-->
+
+                            <!--end::Mobile logo-->
+                            <!--begin::Header wrapper-->
+                            <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
+                                <!--begin::Menu wrapper-->
+                                <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'prepend'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0" id="kt_app_header_menu" data-kt-menu="true">
+                                        <!--begin:Menu item-->
+                                        <!--begin::Toolbar-->
+                                        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6 hideifframe82">
+                                            <!--begin::Toolbar container-->
+                                            <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+                                                <!--begin::Page title-->
+                                                <!--end::Page title-->
+                                            </div>
+                                            <!--end::Toolbar container-->
+                                        </div>
+
+                                        <!--end::Toolbar-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </div>
+                                <!--end::Menu wrapper-->
+                                <!--begin::Navbar-->
+                                <div class="app-navbar flex-shrink-0"
+
+                            <!--begin::Chat-->
+                            <div class="app-navbar-item ms-1 ms-md-3" onclick="OpenCart()">
+                                <!--begin::Menu wrapper-->
+                                <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px position-relative" id="kt_drawer_chat_toggle">
+                                    <i class="ki-duotone ki-purchase fs-2 fs-lg-1"">
+ <i class="path1"></i>
+ <i class="path2"></i>
+</i>
+                                    <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
+                                </div>
+                                <!--end::Menu wrapper-->
+                            </div>
+                            <!--end::Chat-->
+                            <!--begin::My apps links-->
+                            <!--end::My apps links-->
+
+                            <!--begin::User menu-->
+                            <div class="app-navbar-item ms-1 ms-md-3" id="kt_header_user_menu_toggle">
+                                <!--begin::Menu wrapper-->
+                                <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                                    <img src="/onlinebookstore/assets/user.png" id="Image1" alt="user" />
+                                </div>
+                                <!--begin::User account menu-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-3">
+                                        <div class="menu-content d-flex align-items-center px-3">
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-50px me-5">
+                                            </div>
+                                            <!--end::Avatar-->
+                                            <!--begin::Username-->
+                                            <div class="d-flex flex-column">
+                                                <div class="fw-bold d-flex align-items-center fs-5" id="UserName" runat="server">
+                                                    @ViewBag.UserName
+
+                                                    <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                                </div>
+
+                                            </div>
+                                            <!--end::Username-->
+                                        </div>
+                                    </div>
+                                    <div class="separator my-2"></div>
+                                    <div class="menu-item px-5">
+                                        <a Class="menu-link px-5" ProgId="1" AccessKey="u" runat="server" href="@Url.Action("Index", "Home")">
+
+
+                                            <span class="menu-title"> صفحة التسوق </span>
+
+
+                                        </a>
+                                    </div>
+                                    <div class="separator my-2"></div>
+                                    <div class="menu-item px-5">
+                                        <a Class="menu-link px-5" ProgId="1" ID="Employees" AccessKey="u" runat="server" href="@Url.Action("Index", "ShoppingHistory")">
+
+                                            <span class="menu-title"> مشترياتى السابقة</span>
+
+
+                                        </a>
+                                    </div>
+                                    <div class="separator my-2"></div>
+                                    <div class="menu-item px-5">
+                                        <a Class="menu-link px-5" ProgId="1" ID="Employees" AccessKey="u" runat="server"  onclick="LogOut()">
+                                            تسجيل الخروج
+
+                                        </a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                </div>
+                                <!--end::User account menu-->
+                                <!--end::Menu wrapper-->
+                               
+                            </div>
+                            <!--end::User menu-->
+                            <!--begin::Header menu toggle-->
+                            @*<div class="app-navbar-item d-lg-none ms-2 me-n2" title="Show header menu">
+                                <div class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px" id="kt_app_header_menu_toggle">
+                                    <i class="ki-duotone ki-element-4 fs-1">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </div>
+                            </div>*@
+                            <!--end::Header menu toggle-->
+                        </div>
+                                <!--end::Navbar-->
+                            </div>
+                            <!--end::Header wrapper-->
+                        </div>
+                        <!--end::Header container-->
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Wrapper-->
+
+                    <asp:ContentPlaceHolder ID="ContentMenu" runat="server">
+                        <div class=" flex-column flex-row-fluid ourPagescntnt" id="kt_app_wrapper">
+                          
+                            <!--begin::Main-->
+                            <div class="app-main flex-column flex-row-fluid ourPagescntnt" id="kt_app_main">
+                                <!--begin::Content wrapper-->
+                                <div class="d-flex flex-column flex-column-fluid hideifframe82 ourPagescntnt">
+                                    <!--begin::Toolbar-->
+                                    <!--end::Toolbar-->
+                                    <div class="kt-content  kt-grid__item kt-grid__item--fluid ">
+
+
+
+
+
+                                        <asp:ToolkitScriptManager ID="ToolkitScriptManager2" runat="server"></asp:ToolkitScriptManager>
+
+                                        <div id="kt_app_content" class="app-content flex-column-fluid">
+                                            <!--begin::Content container-->
+                                            <div id="kt_app_content_container" class="app-container container-xxl">
+
+                                                <!--begin::Card-->
+                                                <div>
+                                                    @RenderBody()
+                                                    @*@if ((string)Session["ShoppingCart"] != null)
+                                                    {*@
+                                                        <a href="@Url.Action("Index", "ShoppingCart")" class="float">
+
+                                                            <button class="btn btn-danger" type="button">
+                                                                اتمام الشراء <span class="bi bi-cart"></span>
+                                                            </button>
+                                                        </a>
+                                                   @* }*@
+                                                   
+                                                    </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- end:: Content -->
+
+
+                                    </div>
+                                </div>
+                                <!--begin::Footer-->
+                                <div id="kt_app_footer" style="text-align:center" class="app-footer">
+                                    <!--begin::Footer container-->
+                                    <div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
+                                        <!--begin::Copyright-->
+                                        <div class="text-dark order-2 order-md-1">
+
+                                        </div>
+                                        <!--end::Copyright-->
+                                        <!--begin::Menu-->
+                                        <!--end::Menu-->
+                                    </div>
+
+                                    <!--end::Footer container-->
+                                </div>
+
+                                <!--end::Footer-->
+                            </div>
+                            <!--end:::Main-->
+                        </div>
+                        <!--end::Wrapper-->
+                    </asp:ContentPlaceHolder>
+                </div>
+                <!--end::Page-->
+
+            </div>
+            <!--begin Cart -->
+            <div id="kt_drawer_chat" class="bg-body drawer drawer-end" data-kt-drawer="true" data-kt-drawer-name="chat" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'md': '500px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_drawer_chat_toggle" data-kt-drawer-close="#kt_drawer_chat_close" style="width: 500px !important;">
+
+                <!--begin::Messenger-->
+                <div class="card w-100 border-0 rounded-0" id="kt_drawer_chat_messenger">
+
+                    <!--begin::Card header-->
+                    <div class="card-header pe-5" id="kt_drawer_chat_messenger_header">
+                        <!--begin::Title-->
+                        <div class="card-title">
+                            <!--begin::User-->
+                            <div class="d-flex justify-content-center flex-column me-3">
+                                <h3>عربة التسوق</h3>
+                                <!--end::Info-->
+                            </div>
+                            <!--end::User-->
+                        </div>
+                        <!--end::Title-->
+                        <!--begin::Card toolbar-->
+                        <div class="card-toolbar">
+
+
+                            <!--begin::Close-->
+                            <div class="btn btn-sm btn-icon btn-active-color-primary" id="kt_drawer_chat_close">
+                                <i class="ki-duotone ki-cross-square fs-2"><span class="path1"></span><span class="path2"></span></i>
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Card toolbar-->
+                    </div>
+                    <!--end::Card header-->
+                    <div id="CartDiv" style="display:none">
+                        <!--begin::Card body-->
+                        <div class="card-body" id="kt_drawer_chat_messenger_body">
+                            <!--begin::Messages-->
+                            <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer" data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px" >
+
+                                <section class=" h-custom">
+                                    <div class="container py-5">
+                                        <div class="row d-flex justify-content-center align-items-center">
+                                            <div class="col">
+
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                   <th scope="col" class="h5"><h5>غلاف الكتاب</h5></th>
+                                                                <th scope="col"><h5>اسم الكتاب</h5></th>
+                                                                <th scope="col"><h5>الكمية</h5></th>
+                                                                @*<th scope="col"><h5>السعر</h5></th>*@
+                                                                <th scope="col"><h5>حذف</h5></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbody_cart">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </section>
+
+
+
+
+                            </div>
+                            <!--end::Messages-->
+                        </div>
+                    </div>
+                    <!--end::Card body-->
+                    <!--begin::Card footer-->
+                    <div class="card-footer pt-4" id="kt_drawer_chat_messenger_footer" style="margin-bottom:50px">
+                        <!--begin::Input-->
+                        <!--end::Input-->
+                        <!--begin:Toolbar-->
+                     
+                            <div class="d-flex flex-stack" style="justify-content:center">
+
+                               
+                                <a href="@Url.Action("Index", "ShoppingCart")">
+                                    <!--begin::Send-->
+                                    <button class="btn btn-danger" type="button" data-kt-element="send" onclick="RedirectToCart()">
+                                        اشترى الان <i class="ki-duotone ki-purchase fs-2 fs-lg-1">
+                                            <i class="path1"></i>
+                                            <i class="path2"></i>
+                                        </i>
+                                    </button>
+                                </a>
+                                <!--end::Send-->
+                            </div>
+                       
+
+                        <!--end::Toolbar-->
+                    </div>
+                        <div id="EmptyCart" style="text-align: center;display:none">
+                            <img src="~/assets/empty.png" style="width:100%">
+                            <h3 style="margin-top:30px;text-align:center;width:100%">عربة التسوق فارغة</h3>
+                            <a href="@Url.Action("Index", "Home")">
+                            <button class="btn btn-danger" type="button" data-kt-element="send" style="margin-top:30px" onclick="RedirectToAdd()">
+                                اضافة كتب <i class="ki-duotone ki-purchase fs-2 fs-lg-1">
+                                    <i class="path1"></i>
+                                    <i class="path2"></i>
+                                </i>
+                            </button>
+                                </a>
+                        </div>
+                        <!--end::Card footer-->
+                    </div>
+                    <!--end::Messenger-->
+                </div>
+            <!--end cart -->
+            <asp:HiddenField ID="ProgId" runat="server" />
+
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - StudentLibrary - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script>var hostUrl = "~/assets/";</script>
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="~/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="~/assets/js/scripts.bundle.js"></script>
+    <!--end::Global Javascript Bundle-->
+    <!--begin::Vendors Javascript(used for this page only)-->
+    <script src="~/assets/vendors/custom/datatables/datatables.bundle.js"></script>
+   
+
+    <script src="~/assets/ltr/vendors/custom/datatables/datatables.bundle.js"></script>
+    <!--end::Vendors Javascript-->
+    <!--begin::Custom Javascript(used for this page only)-->
+
+    <script src="~/assets/js/widgets.bundle.js"></script>
+    <script src="~/assets/js/custom/widgets.js"></script>
+    <script src="~/assets/js/custom/apps/chat/chat.js"></script>
+    <script src="~/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
+    <script src="~/assets/js/custom/utilities/modals/create-app.js"></script>
+    <script src="~/assets/js/custom/utilities/modals/new-card.js"></script>
+    <script src="~/assets/js/custom/utilities/modals/users-search.js"></script>
+    <script src="~/assets/jquery-validation/js/valid.js"></script>
+
+    <script src="~/assets/plugins/custom/fslightbox/fslightbox.bundle.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function LogOut() {
+            localStorage.clear();
+            window.location.href = "logout/Logout"
+        }
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "Home/GetSettings",
+                data: null,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function (result) {
+                    document.querySelector(`[id$='IsSingleCopy']`).value = result[0].Is_One_Copy;
+                }
+            });
+        })
+        function OpenCart() {
+            if (localStorage.Cart == undefined) {
+                document.getElementById("EmptyCart").style.display = ""
+                document.getElementById("CartDiv").style.display = "none"
+                document.getElementById("kt_drawer_chat_messenger_footer").style.display = "none"
+            }
+            else {
+                document.getElementById("EmptyCart").style.display = "none"
+                document.getElementById("CartDiv").style.display = ""
+                document.getElementById("kt_drawer_chat_messenger_footer").style.display = ""
+            }
+            if (localStorage.Cart != undefined) {
+                var Cart = JSON.parse(localStorage.Cart);
+                if (Cart.length == 0) {
+                    document.getElementById("EmptyCart").style.display = ""
+                    document.getElementById("CartDiv").style.display = "none"
+                    document.getElementById("kt_drawer_chat_messenger_footer").style.display = "none"
+
+                }
+                else {
+                    document.getElementById("kt_drawer_chat_messenger_footer").style.display = ""
+                    var IsSingleCopy = document.querySelector(`[id$='IsSingleCopy']`).value;
+                    document.getElementById("tbody_cart").innerHTML = ""
+                    for (var i = 0; i < Cart.length; i++) {
+                        var Script = "";
+                        Script += "<tr BookId = " + Cart[i].BookId + ">" +
+                            "<th scope = 'row'>" +
+                            "<div class='d-flex align-items-center' style='justify-content: center;'>" +
+                            "<img src='" + Cart[i].BookImage +"' class='img-fluid rounded-3' style='width: 120px;' alt='Book'>" + "</div>" +
+                            "</th>" +
+                            "<td class='align-middle' style='text-align: center;'>" +
+                            "<p class='mb-0' style='font-weight: 500;'>" + Cart[i].BookName + "</p>" +
+                            "</td>" +
+                            "<td class='align-middle'>" +
+                            " <div class='d-flex flex-row' style='align-items: center;justify-content: center;'>";
+                        if (IsSingleCopy == "0") {
+                            Script += "<button class='btn btn-link px-2' onclick='this.parentNode.querySelector(`input[type=number]`).stepUp();ChangeQuantity(" + Cart[i].BookId + ",this.parentNode.querySelector(`input[type = number]`).value)'>" +
+                                "<i class='fas fa-plus'></i>" +
+                                " </button>" +
+                                " <input id='form1' disabled onChange='ChangeQuantity(" + Cart[i].BookId + ",this.parentNode.querySelector(`input[type = number]`).value)' min='0' name='quantity' value='" + Cart[i].BookQuantity + "' type='number' class='form-control form-control-sm'style='width: 50px' />" +
+                                "<button class='btn btn-link px-2'" +
+                                "onclick ='StepDownClick(this);ChangeQuantity(" + Cart[i].BookId + ",this.parentNode.querySelector(`input[type = number]`).value)' > " +
+                                "<i class='fas fa-minus'></i>" +
+                                "</button>";
+                        }
+                        else {
+                            Script += "<p class='mb-0' style='font-weight: 500'>" + Cart[i].BookQuantity + "</p>"
+                        }
+                        Script += "</div > " +
+                            "</td>" +
+                            //"<td class='align-middle'>" +
+                            //"<p class='mb-0' style='font-weight: 500'>" + Cart[i].BookPrice + "</p>" +
+                            //"</td>" +
+                            "<td class='align-middle'>" +
+                            "<button class='btn btn-danger rounded - 0' onclick='Delete(event," + Cart[i].BookId + ")'><i class='fa-solid fa-trash'></i></button>";
+                        "</td>" +
+                            "</tr>";
+                        document.getElementById("tbody_cart").innerHTML += Script
+                    }
+                }
+            }
+        }
+        function ChangeQuantity(Id, Quantity) {
+            var Cart = JSON.parse(localStorage.Cart);
+            for (var i = 0; i < Cart.length; i++) {
+                if (Cart[i].BookId == Id) {
+                    Cart[i].BookQuantity = Quantity
+                    localStorage.setItem('Cart', JSON.stringify(Cart));
+                    return;
+                }
+            }
+
+        }
+        function StepDownClick(ele) {
+            if (ele.parentNode.querySelector(`input[type=number]`).value > 1)
+                ele.parentNode.querySelector(`input[type=number]`).stepDown();
+        }
+        function Delete(event, Id) {
+            var Cart = JSON.parse(localStorage.Cart);
+            for (var i = 0; i < Cart.length; i++) {
+                if (Cart[i].BookId == Id) {
+                    Cart.splice(i, 1);
+                    localStorage.setItem('Cart', JSON.stringify(Cart));
+                }
+            }
+            var SelectedRow = event.target.closest("tr");
+            SelectedRow.remove();
+            if (Cart.length == 0) {
+                document.getElementById("EmptyCart").style.display = ""
+                document.getElementById("CartDiv").style.display = "none"
+                document.getElementById("kt_drawer_chat_messenger_footer").style.display = "none"
+            }
+
+        }
+        function Notification_success(Notice, flag) {
+
+
+           
+                if (flag == "true") {
+                    Swal.fire({
+                        text: Notice,
+                        icon: "success",
+                        buttonsStyling: !1,
+                        confirmButtonText: "حسنًا ، موافق.",
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-primary",
+                        },                        
+                    })
+                }
+                else {
+                    Swal.fire({
+                        text: Notice,
+                        icon: "error",
+                        buttonsStyling: !1,
+                        confirmButtonText: "حسنًا ، موافق.",
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-primary",
+                        }
+                    })
+                }
+           
+        }
+
+    </script>
+</body>
+</html>

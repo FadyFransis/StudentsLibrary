@@ -1,0 +1,281 @@
+﻿
+@model StudentsLibrary.Models.PaymentResultModel
+
+@{
+    ViewBag.Title = "PaymentResult";
+}
+
+
+@{
+    ViewBag.Title = "FinishShop";
+}
+<style>
+    #invoice-POS {
+        box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+        padding: 2mm;
+        padding-top: 4mm;
+        margin: 0 auto;
+        margin-top: 40px;
+        width: 70%;
+        background: #FFF;
+        :: selection
+
+    {
+        background: #f31544;
+        color: #FFF;
+    }
+
+    ::moz-selection {
+        background: #f31544;
+        color: #FFF;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        color: #222;
+    }
+
+    h2 {
+        font-size: .9em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+        font-weight: 300;
+        line-height: 2em;
+    }
+
+    p {
+        font-size: .7em;
+        color: #666;
+        line-height: 1.2em;
+    }
+
+    #top, #mid, #bot { /* Targets all id with 'col-' */
+        border-bottom: 1px solid #EEE;
+    }
+
+    #top {
+        min-height: 100px;
+    }
+
+    #mid {
+        min-height: 80px;
+    }
+
+    #bot {
+        min-height: 50px;
+    }
+
+    #top .logo {
+        //float: left;
+        height: 60px;
+        width: 60px;
+        background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;
+        background-size: 60px 60px;
+    }
+
+    .clientlogo {
+        float: left;
+        height: 60px;
+        width: 60px;
+        background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+        background-size: 60px 60px;
+        border-radius: 50px;
+    }
+
+    .info {
+        display: block;
+        //float:left;
+        margin-left: 0;
+    }
+
+    .title {
+        float: right;
+    }
+
+        .title p {
+            text-align: right;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        //padding: 5px 0 5px 15px;
+        //border: 1px solid #EEE
+    }
+
+    .tabletitle {
+        //padding: 5px;
+        font-size: .5em;
+        background: #EEE;
+    }
+
+    .service {
+        border-bottom: 1px solid #EEE;
+    }
+
+    .item {
+        width: 24mm;
+    }
+
+    .itemtext {
+        font-size: .5em;
+    }
+
+    #legalcopy {
+        margin-top: 5mm;
+    }
+    }
+</style>
+
+<div id="invoice-POS">
+
+    <center id="top">
+        <div class="logo"></div>
+        <div class="info">
+            <h2> فاتورة الدفع</h2>
+        </div><!--End Info-->
+    </center><!--End InvoiceTop-->
+
+    <div id="mid">
+        <div class="info">
+            <h2>بيانات الدفع</h2>
+        </div>
+    </div><!--End Invoice Mid-->
+
+    <div id="bot">
+        <div id="IsSuccess" style="display:none">
+            @if ((int)ViewBag.Result == 1)
+            { 
+            @:1
+            }
+            else
+            {
+                @:0
+            }
+            </div>
+        <div>
+            @ViewBag.purcaseNo
+        </div>
+        @if ((int)ViewBag.Result == 1)
+        {
+            <div class="alert alert-success    text-center">
+                تمت عملية الدفع بنجاح
+            </div>
+
+        }
+        else
+        {
+            <div class="alert alert-danger   text-center">
+                فشلت عملية الدفع ... حاول مرة أخرى
+            </div>
+        }
+
+        <div class="table-responsive">
+            <table class="table">
+
+                <tbody>
+                    <tr>
+                        <td>رقم الدفع</td>
+                        <td>@Model.PaymentID</td>
+                    </tr>
+                    @if ((int)ViewBag.Result == 1)
+                    {
+                        <tr>
+                    <td>رقم الفاتوره</td>
+                    <td>@Model.PurchaseNo</td>
+                    </tr>
+                     }
+                    
+                    <tr>
+                        <td>رقم العملية</td>
+                        <td>@Model.TransactionID</td>
+                    </tr>
+                    <tr>
+                        <td>رقم التتبع</td>
+                        <td>@Model.TrackID</td>
+                    </tr>
+                    <tr>
+                        <td>الحالة</td>
+                        <td>
+                            @if ((int)ViewBag.Result == 1)
+                            {
+                                @: ناجحة
+                            }
+                            else
+                            {
+                                @: فاشلة
+
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>السعر</td>
+                        <td>@Model.Amount</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+        </div>
+        <div id="legalcopy">
+            <p class="legal">
+                <strong>شكرا لاستخدامك مكتبة الطالب</strong>
+            </p>
+        </div>
+
+        </input><!--End InvoiceBot-->
+    </div><!--End Invoice-->
+<div class="card-footer pt-4" style="margin-top:50px">
+    <!--begin::Input-->
+    <!--end::Input-->
+    <!--begin:Toolbar-->
+
+    @if ((int)ViewBag.Result == 1)
+    {
+        <div class="d-flex flex-stack" style="justify-content:center;margin-bottom:20px">
+            <!--begin::Send-->
+            <a href=@Model.websiteUrl class="btn btn-primary" type="button" data-kt-element="send" style="width:60%" target="_blank">
+                لينك الموقع 
+            </a>
+            <!--end::Send-->
+        </div>
+    <div class="d-flex flex-stack" style="justify-content:center">
+            <!--begin::Send-->
+            <a href="/" class="btn btn-danger" type="button" data-kt-element="send" style="width:60%">
+                الصفحة الرئيسية <i class="ki-duotone ki-purchase fs-2 fs-lg-1">
+                    <i class="path1"></i>
+                    <i class="path2"></i>
+                </i>
+            </a>
+            <!--end::Send-->
+        </div>
+    }
+    else
+    {
+        <div class="d-flex flex-stack" style="justify-content:center">
+            <!--begin::Send-->
+            <a href="~/onlinebookstore/FinishShop/processpayment" class="btn btn-danger" type="button" data-kt-element="send" style="width:60%">
+                حاول مرة اخرى <i class="ki-duotone ki-purchase fs-2 fs-lg-1">
+                    <i class="path1"></i>
+                    <i class="path2"></i>
+                </i>
+            </a>
+            <!--end::Send-->
+        </div>
+    }
+
+    <!--end::Toolbar-->
+</div>
+<script>
+    if (document.getElementById("IsSuccess").innerText.trim() == 1)
+        localStorage.clear();
+
+</script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/Home/FinishShop.js"></script>

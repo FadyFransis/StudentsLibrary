@@ -1,0 +1,270 @@
+﻿
+@{
+    ViewBag.Title = "FinishShop";
+}
+<style>
+    #invoice-POS {
+        box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+        padding: 2mm;
+        padding-top: 4mm;
+        margin: 0 auto;
+        margin-top: 40px;
+        width: 70%;
+        background: #FFF;
+        :: selection
+
+    {
+        background: #f31544;
+        color: #FFF;
+    }
+
+    ::moz-selection {
+        background: #f31544;
+        color: #FFF;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        color: #222;
+    }
+
+    h2 {
+        font-size: .9em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+        font-weight: 300;
+        line-height: 2em;
+    }
+
+    p {
+        font-size: .7em;
+        color: #666;
+        line-height: 1.2em;
+    }
+
+    #top, #mid, #bot { /* Targets all id with 'col-' */
+        border-bottom: 1px solid #EEE;
+    }
+
+    #top {
+        min-height: 100px;
+    }
+
+    #mid {
+        min-height: 80px;
+    }
+
+    #bot {
+        min-height: 50px;
+    }
+
+    #top .logo {
+        //float: left;
+        height: 60px;
+        width: 60px;
+        background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;
+        background-size: 60px 60px;
+    }
+
+    .clientlogo {
+        float: left;
+        height: 60px;
+        width: 60px;
+        background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+        background-size: 60px 60px;
+        border-radius: 50px;
+    }
+
+    .info {
+        display: block;
+        //float:left;
+        margin-left: 0;
+    }
+
+    .title {
+        float: right;
+    }
+
+        .title p {
+            text-align: right;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        //padding: 5px 0 5px 15px;
+        //border: 1px solid #EEE
+    }
+
+    .tabletitle {
+        //padding: 5px;
+        font-size: .5em;
+        background: #EEE;
+    }
+
+    .service {
+        border-bottom: 1px solid #EEE;
+    }
+
+    .item {
+        width: 24mm;
+    }
+
+    .itemtext {
+        font-size: .5em;
+    }
+
+    #legalcopy {
+        margin-top: 5mm;
+    }
+    }
+</style>
+
+<div id="invoice-POS">
+
+    <center id="top">
+        <div class="logo"></div>
+        <div class="info">
+            <h2> فاتورة الشراء</h2>
+        </div><!--End Info-->
+    </center><!--End InvoiceTop-->
+
+    <div id="mid">
+        <div class="info">
+            <h2>بيانات المشترى</h2>
+            <p>
+              <span style="font-weight:bold"> الاسم </span>:  @ViewBag.UserName <br />
+
+        </div>
+    </div><!--End Invoice Mid-->
+
+    <div id="bot">
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><h5>اسم الكتاب</h5></th>
+                        <th scope="col"><h5>الكمية</h5></th>
+                        <th scope="col" id="SupportedCopy"><h5>سعر النسخة المدعمة</h5></th>
+                        <th scope="col" id="PriceOtherCopies"><h5>سعر باقى النسخ</h5></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody_cart_Details">
+                </tbody>
+            </table>
+
+
+        </div>
+        <div id="mid">
+            <div class="info">
+                <p>
+                    <span style="font-weight:bold;font-size:15px"> اجمالى السعر قبل الدعم</span>:  <span id="totalPriceBeforerDis"></span> <br />
+
+            </div>
+        </div><!--End Invoice Mid-->
+    <div id="mid">
+            <div class="info">
+                <p>
+                    <span style="font-weight:bold;font-size:15px"> اجمالى السعر بعد الدعم</span>:  <span id="totalPrice"></span> <br />
+
+            </div>
+        </div><!--End Invoice Mid-->
+    <div >
+        <label class=" fw-semibold fs-6" style="margin:auto;" id="dv_Terms" style="font-weight:bold">
+            <input type="checkbox" class="form-check-input" id="chk_Terms"/>
+            
+       </label>
+
+    </div>
+   
+    <div id="legalcopy">
+            <p class="legal">
+                <strong>شكرا لاستخدامك مكتبة الطالب</strong>  
+            </p>
+        </div>
+
+    </div><!--End InvoiceBot-->
+</div><!--End Invoice-->
+<div class="card-footer pt-4" style="margin-top:50px">
+    <!--begin::Input-->
+    <!--end::Input-->
+    <!--begin:Toolbar-->
+    <div class="d-flex flex-stack" style="justify-content:center">
+        <!--begin::Send-->
+        <button class="btn btn-danger" type="button" data-kt-element="send" style="width:60%" onclick="finishShop.FinishShop()">
+            اتمام الدفع <i class="ki-duotone ki-purchase fs-2 fs-lg-1">
+                <i class="path1"></i>
+                <i class="path2"></i>
+            </i>
+        </button>
+        @*<a href="\FinishShop\processpayment" class="btn btn-danger" type="button" data-kt-element="send" style="width:60%" >
+            اتمام الدفع <i class="ki-duotone ki-purchase fs-2 fs-lg-1">
+                <i class="path1"></i>
+                <i class="path2"></i>
+            </i>
+        </a>*@
+        <!--end::Send-->
+    </div>
+    <!--end::Toolbar-->
+</div>
+<div class="modal fade" tabindex="-1" id="kt_modal_scrollable_3">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:900px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">الشروط والاحكام</h5>
+
+                <!--begin::Close-->
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body" id="MainInfo">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> موافق </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/Home/FinishShop.js"></script>
+<script>
+     function pay () {
+        debugger;
+
+            $.ajax({
+                type: "POST",
+                url: "FinishShop/processpayment",
+                data: JSON.stringify({
+
+                  "totalPrice": document.getElementById("totalPrice").firstChild.data,
+
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                cache: false,
+                success: function (result) {
+                    if (result == "1") {
+                       
+                        return result;
+                    }
+                    else if (result == "-2") {
+                        Notification_success('الوقت والتاريخ المختارين مزدحمين يرجى اختيار ساعه او تاريخ مختلفين', 'false');
+                    } else {
+                        Notification_success('الكتاب(' + result + ' ) غير موجود فى المخزن المختار بتاريخ الاستلام المطلوب برجاء اختيار مخزن او تاريخ مختلف', 'false');
+                    }
+                }
+            });
+        
+    }
+
+</script>
